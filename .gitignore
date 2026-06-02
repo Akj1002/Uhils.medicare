@@ -1,0 +1,108 @@
+# ================================
+# PYTHON / BACKEND
+# ================================
+
+# Virtual environments
+venv/
+env/
+.env/
+.venv/
+ENV/
+
+# Environment variables (KEEP SECRET!)
+.env
+*.env
+.env.local
+.env.production
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+
+# SQLite database
+*.db
+*.sqlite
+*.sqlite3
+
+# Pytest / testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# MyPy
+.mypy_cache/
+
+# ================================
+# UPLOADS / USER DATA
+# ================================
+backend/uploads/
+backend/data/
+backend/test_samples/
+
+# ================================
+# FRONTEND / NODE
+# ================================
+
+# Node modules (huge, always ignored)
+node_modules/
+
+# React production build
+frontend/build/
+frontend/dist/
+
+# Environment files
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# npm / yarn logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# ================================
+# OS / EDITOR
+# ================================
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains IDEs
+.idea/
+*.iml
+
+# ================================
+# MISC
+# ================================
+
+# Logs
+*.log
+logs/
+
+# Temp files
+*.tmp
+*.temp
+*.bak
+*.swp
