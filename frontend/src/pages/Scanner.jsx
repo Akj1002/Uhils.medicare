@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import TiltCard from '../components/ui/TiltCard'; 
-import { Scan, Upload, Activity, AlertCircle, CheckCircle } from 'lucide-react';
+import { Scan, Upload, AlertCircle, CheckCircle } from 'lucide-react';
 import API_BASE_URL from '../config/api';
 
 const Scanner = () => {

@@ -88,7 +88,7 @@ const Login = () => {
                 <div className="space-y-2">
                     <div className="flex justify-between items-center pl-1 pr-1">
                         <label className="text-xs font-bold text-slate-400 uppercase tracking-widest">Password</label>
-                        {!isSignup && <a href="#" className="text-xs text-cyan-500 hover:text-cyan-400 font-bold transition-colors">Forgot?</a>}
+                        {!isSignup && <button type="button" className="text-xs text-cyan-500 hover:text-cyan-400 font-bold transition-colors">Forgot?</button>}
                     </div>
                     <div className="relative">
                         <Lock className="absolute left-4 top-3.5 text-slate-500 w-5 h-5" />

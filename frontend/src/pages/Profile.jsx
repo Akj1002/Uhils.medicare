@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
-import { User, Bell, Shield, Smartphone, Heart, AlertCircle } from 'lucide-react';
+import { User, Bell, Shield, Smartphone, AlertCircle } from 'lucide-react';
 import API_BASE_URL from '../config/api';
 
 const Profile = () => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/layout/Navbar';
-import { ShoppingCart, Pill, Activity, ShieldCheck, Truck, Plus, Minus, CreditCard, ChevronRight, CheckCircle, Package, Lock, Filter, Search } from 'lucide-react';
+import { ShoppingCart, Pill, ShieldCheck, Plus, Minus, CreditCard, ChevronRight, CheckCircle, Package, Lock, Search } from 'lucide-react';
 import API_BASE_URL from '../config/api';
 
 const PATIENT_ID = 2;
