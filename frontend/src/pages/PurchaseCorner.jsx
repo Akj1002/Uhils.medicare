@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/layout/Navbar';
 import { ShoppingCart, Pill, Activity, ShieldCheck, Truck, Plus, Minus, CreditCard, ChevronRight, CheckCircle, Package, Lock, Filter, Search } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const PATIENT_ID = 2;
 
@@ -28,10 +29,10 @@ const PurchaseCorner = () => {
     setLoading(true);
     try {
       const [invRes, cartRes, dashRes, ordRes] = await Promise.all([
-        fetch('http://localhost:8000/products'),
-        fetch(`http://localhost:8000/cart/${PATIENT_ID}`),
-        fetch(`http://localhost:8000/dashboard/${PATIENT_ID}`),
-        fetch(`http://localhost:8000/orders/${PATIENT_ID}`)
+        fetch(`${API_BASE_URL}/products`),
+        fetch(`${API_BASE_URL}/cart/${PATIENT_ID}`),
+        fetch(`${API_BASE_URL}/dashboard/${PATIENT_ID}`),
+        fetch(`${API_BASE_URL}/orders/${PATIENT_ID}`)
       ]);
       
       const invData = await invRes.json();
@@ -59,7 +60,7 @@ const PurchaseCorner = () => {
         return;
     }
     try {
-      await fetch(`http://localhost:8000/cart/add/${PATIENT_ID}/${product.id}`, { method: 'POST' });
+      await fetch(`${API_BASE_URL}/cart/add/${PATIENT_ID}/${product.id}`, { method: 'POST' });
       fetchData(); // Refresh cart
     } catch (e) {
       console.error(e);
@@ -68,7 +69,7 @@ const PurchaseCorner = () => {
 
   const handleRemoveFromCart = async (productId) => {
     try {
-      await fetch(`http://localhost:8000/cart/remove/${PATIENT_ID}/${productId}`, { method: 'POST' });
+      await fetch(`${API_BASE_URL}/cart/remove/${PATIENT_ID}/${productId}`, { method: 'POST' });
       fetchData();
     } catch (e) {
       console.error(e);
@@ -79,7 +80,7 @@ const PurchaseCorner = () => {
     setIsCheckingOut(true);
     setTimeout(async () => {
         try {
-            await fetch(`http://localhost:8000/pay/${PATIENT_ID}`, { method: 'POST' });
+            await fetch(`${API_BASE_URL}/pay/${PATIENT_ID}`, { method: 'POST' });
             setPaymentSuccess(true);
             setCart([]);
             fetchData();

@@ -7,8 +7,9 @@ import {
   Building2, Crosshair, AlertCircle, PhoneCall,
   Siren, Activity
 } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
-const API = 'http://localhost:8000';
+const API = API_BASE_URL;
 const PATIENT_ID = parseInt(localStorage.getItem('uhlis_user_id') || '2');
 const PATIENT_NAME = localStorage.getItem('uhlis_user_name') || 'Patient';
 

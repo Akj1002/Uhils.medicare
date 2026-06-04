@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../components/layout/Navbar';
 import { Send, Bot, User, Mic, Paperclip, Sparkles, HeartPulse, BrainCircuit } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const Chat = () => {
   const [input, setInput] = useState("");
@@ -32,7 +33,7 @@ const Chat = () => {
 
     try {
       // 2. CONNECT TO REAL BACKEND (Local Llama 3)
-      const response = await fetch('http://localhost:8000/chat/copilot', {
+      const response = await fetch(`${API_BASE_URL}/chat/copilot`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

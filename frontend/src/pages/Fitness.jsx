@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../components/layout/Navbar';
 import { Activity, Droplet, Moon, Plus, Target, Zap, MessageSquare, Send, Watch, Brain, Flame, Utensils, HeartPulse, Award, TrendingUp } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import API_BASE_URL from '../config/api';
 
 const PATIENT_ID = 2;
 
@@ -28,7 +29,7 @@ const Fitness = () => {
 
   const fetchFitness = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/fitness/${PATIENT_ID}`);
+      const res = await fetch(`${API_BASE_URL}/fitness/${PATIENT_ID}`);
       if (res.ok) {
         const json = await res.json();
         setData(json);
@@ -38,7 +39,7 @@ const Fitness = () => {
 
   const fetchHistory = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/fitness/${PATIENT_ID}/history`);
+      const res = await fetch(`${API_BASE_URL}/fitness/${PATIENT_ID}/history`);
       if (res.ok) {
           const json = await res.json();
           // Map to chart format
@@ -55,7 +56,7 @@ const Fitness = () => {
 
   const syncWearable = async () => {
     try {
-      await fetch(`http://localhost:8000/fitness/${PATIENT_ID}/sync_wearable`, { method: 'POST' });
+      await fetch(`${API_BASE_URL}/fitness/${PATIENT_ID}/sync_wearable`, { method: 'POST' });
       alert("Apple Watch / Fitbit data synced successfully!");
       fetchFitness();
       fetchHistory();
@@ -65,7 +66,7 @@ const Fitness = () => {
   const logMeal = async (e) => {
     e.preventDefault();
     try {
-      await fetch(`http://localhost:8000/fitness/${PATIENT_ID}/meal`, {
+      await fetch(`${API_BASE_URL}/fitness/${PATIENT_ID}/meal`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -84,7 +85,7 @@ const Fitness = () => {
   const logWorkout = async (e) => {
     e.preventDefault();
     try {
-      await fetch(`http://localhost:8000/fitness/${PATIENT_ID}/workout`, {
+      await fetch(`${API_BASE_URL}/fitness/${PATIENT_ID}/workout`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ activity: workoutForm.activity, duration_minutes: workoutForm.dur, calories_burned: workoutForm.cal })
@@ -99,7 +100,7 @@ const Fitness = () => {
 
   const addSteps = async (amount) => {
     try {
-      const res = await fetch(`http://localhost:8000/fitness/${PATIENT_ID}/steps`, {
+      const res = await fetch(`${API_BASE_URL}/fitness/${PATIENT_ID}/steps`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ value: (data?.steps || 0) + amount })
       });
@@ -109,7 +110,7 @@ const Fitness = () => {
 
   const addWater = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/fitness/${PATIENT_ID}/water`, { method: 'POST' });
+      const res = await fetch(`${API_BASE_URL}/fitness/${PATIENT_ID}/water`, { method: 'POST' });
       if (res.ok) { const json = await res.json(); setData(prev => ({ ...prev, water_glasses: json.water_glasses })); fetchHistory(); }
     } catch (e) {}
   };
@@ -125,7 +126,7 @@ const Fitness = () => {
     scrollToBottom();
 
     try {
-      const res = await fetch(`http://localhost:8000/chat/ai`, {
+      const res = await fetch(`${API_BASE_URL}/chat/ai`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ patient_id: PATIENT_ID, message: "Fitness context: " + currentInput })
       });

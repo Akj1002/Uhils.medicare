@@ -29,10 +29,19 @@ os.makedirs(UPLOAD_DIR, exist_ok=True)
 # Serve the uploads directory statically so files can be downloaded/viewed
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
-# --- CORS CONFIGURATION (Allow React) ---
+# --- CORS CONFIGURATION (Allow React frontend) ---
+ALLOWED_ORIGINS = [
+    "http://localhost:3000",        # Local development
+    "http://localhost:3001",
+    os.getenv("FRONTEND_URL", ""),  # Set in Railway dashboard: your Vercel URL
+]
+# Filter out empty strings
+ALLOWED_ORIGINS = [o for o in ALLOWED_ORIGINS if o]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=ALLOWED_ORIGINS,
+    allow_origin_regex=r"https://.*\.vercel\.app",  # Allow all Vercel preview URLs
     allow_methods=["*"],
     allow_headers=["*"],
 )

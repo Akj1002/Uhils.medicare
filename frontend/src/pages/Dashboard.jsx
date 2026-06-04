@@ -4,6 +4,7 @@ import Navbar from '../components/layout/Navbar';
 import { Activity, Moon, Zap, Heart, AlertCircle, ShoppingBag, Pill, FileText, Brain, Scan, Droplet, CheckCircle2, Circle, AlertTriangle } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 import RPPGScanner from '../components/rPPGScanner';
+import API_BASE_URL from '../config/api';
 
 const PATIENT_ID = 2; // Abhinav's user ID in the DB
 
@@ -24,7 +25,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchDashboard = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/dashboard/${PATIENT_ID}`);
+        const res = await fetch(`${API_BASE_URL}/dashboard/${PATIENT_ID}`);
         if (!res.ok) throw new Error('Backend returned error');
         const json = await res.json();
         setData(json);
@@ -49,7 +50,7 @@ const Dashboard = () => {
 
   const toggleMedication = async (prescriptionId, taken) => {
     try {
-      const res = await fetch(`http://localhost:8000/prescriptions/${PATIENT_ID}/log/${prescriptionId}`, {
+      const res = await fetch(`${API_BASE_URL}/prescriptions/${PATIENT_ID}/log/${prescriptionId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ taken })

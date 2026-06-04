@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import { User, Bell, Shield, Smartphone, Heart, AlertCircle } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const Profile = () => {
   const [user, setUser] = useState(null);
   const userId = localStorage.getItem('uhlis_user_id') || 2;
 
   useEffect(() => {
-    fetch(`http://localhost:8000/users/${userId}`)
+    fetch(`${API_BASE_URL}/users/${userId}`)
       .then(res => res.json())
       .then(data => setUser(data))
       .catch(err => console.error(err));

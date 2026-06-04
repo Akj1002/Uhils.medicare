@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import TiltCard from '../components/ui/TiltCard'; 
 import { Scan, Upload, Activity, AlertCircle, CheckCircle } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const Scanner = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -29,7 +30,7 @@ const Scanner = () => {
     formData.append('file', selectedImage);
 
     try {
-        const response = await fetch(`http://localhost:8000/scan/${organ}`, {
+        const response = await fetch(`${API_BASE_URL}/scan/${organ}`, {
             method: 'POST',
             body: formData
         });

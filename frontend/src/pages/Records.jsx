@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../components/layout/Navbar';
 import { FileText, UploadCloud, Trash2, Download, Search, FileImage, FileBarChart, Loader2, Sparkles } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const PATIENT_ID = 2; // Hardcoded Abhinav for now
 
@@ -14,7 +15,7 @@ const Records = () => {
   const fetchRecords = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:8000/records/${PATIENT_ID}`);
+      const res = await fetch(`${API_BASE_URL}/records/${PATIENT_ID}`);
       const data = await res.json();
       setRecords(Array.isArray(data) ? data : []);
     } catch (e) {
@@ -37,7 +38,7 @@ const Records = () => {
     formData.append('title', file.name.split('.')[0]); // Use filename as default title
 
     try {
-      await fetch(`http://localhost:8000/records/${PATIENT_ID}`, {
+      await fetch(`${API_BASE_URL}/records/${PATIENT_ID}`, {
         method: 'POST',
         body: formData,
       });
@@ -53,7 +54,7 @@ const Records = () => {
   const handleDelete = async (recordId) => {
     if (!window.confirm("Delete this record permanently?")) return;
     try {
-      await fetch(`http://localhost:8000/records/${recordId}`, {
+      await fetch(`${API_BASE_URL}/records/${recordId}`, {
         method: 'DELETE',
       });
       setRecords(records.filter(r => r.id !== recordId));
@@ -65,7 +66,7 @@ const Records = () => {
   const handleSummarize = async (recordId) => {
     setSummarizingId(recordId);
     try {
-      const res = await fetch(`http://localhost:8000/records/${recordId}/summarize`, {
+      const res = await fetch(`${API_BASE_URL}/records/${recordId}/summarize`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ patient_id: PATIENT_ID })
@@ -208,7 +209,7 @@ const Records = () => {
                       <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                         {record.file_path && (
                           <a 
-                            href={`http://localhost:8000/${record.file_path}`} 
+                            href={`${API_BASE_URL}/${record.file_path}`} 
                             target="_blank" 
                             rel="noreferrer"
                             className="p-2 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors"

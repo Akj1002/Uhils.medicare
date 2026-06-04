@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../components/layout/Navbar';
 import { Calendar, Clock, Video, MapPin, Plus, UserCircle, X, CheckCircle, AlertTriangle, MessageSquare, Download, FileText, Send } from 'lucide-react';
 import jsPDF from 'jspdf';
+import API_BASE_URL from '../config/api';
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -30,7 +31,7 @@ const Appointments = () => {
 
   const fetchAppointments = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/appointments/${userId}`);
+      const res = await fetch(`${API_BASE_URL}/appointments/${userId}`);
       const data = await res.json();
       setAppointments(data);
     } catch (e) {} finally { setLoading(false); }
@@ -38,7 +39,7 @@ const Appointments = () => {
 
   const fetchDoctors = async () => {
     try {
-      const res = await fetch(`http://localhost:8000/doctors`);
+      const res = await fetch(`${API_BASE_URL}/doctors`);
       const data = await res.json();
       setDoctors(data);
       if (data.length > 0) setNewAppt(prev => ({ ...prev, doctor_id: data[0].id }));
@@ -49,7 +50,7 @@ const Appointments = () => {
     e.preventDefault();
     try {
       const selectedDoc = doctors.find(d => d.id === parseInt(newAppt.doctor_id));
-      await fetch('http://localhost:8000/appointments', {
+      await fetch(`${API_BASE_URL}/appointments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -66,7 +67,7 @@ const Appointments = () => {
 
   const updateStatus = async (appId, status) => {
     try {
-      await fetch(`http://localhost:8000/appointments/${appId}/status?status=${status}`, { method: 'PUT' });
+      await fetch(`${API_BASE_URL}/appointments/${appId}/status?status=${status}`, { method: 'PUT' });
       fetchAppointments();
     } catch (e) {}
   };
@@ -105,7 +106,7 @@ const Appointments = () => {
       setAiInput("");
       
       try {
-          const res = await fetch('http://localhost:8000/chat/ai', {
+          const res = await fetch(`${API_BASE_URL}/chat/ai`, {
               method: 'POST', headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ patient_id: parseInt(userId), message: currentInput })
           });

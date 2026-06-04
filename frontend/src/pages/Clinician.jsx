@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Navbar from '../components/layout/Navbar';
 import { Shield, Search, Star, MessageSquare, Send, Calendar, Award, Phone } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const PATIENT_ID = 2; // Simulated Logged-In Patient
 
@@ -23,7 +24,7 @@ const Clinician = () => {
 
   const fetchDoctors = async () => {
     try {
-      const res = await fetch('http://localhost:8000/doctors');
+      const res = await fetch(`${API_BASE_URL}/doctors`);
       const data = await res.json();
       setDoctors(data);
     } catch (e) {} finally { setLoading(false); }
@@ -41,7 +42,7 @@ const Clinician = () => {
   const fetchChat = async () => {
     if (!selectedDoctor) return;
     try {
-      const res = await fetch(`http://localhost:8000/chat/${PATIENT_ID}/${selectedDoctor.id}`);
+      const res = await fetch(`${API_BASE_URL}/chat/${PATIENT_ID}/${selectedDoctor.id}`);
       if (res.ok) {
         const json = await res.json();
         setMessages(json);
@@ -56,7 +57,7 @@ const Clinician = () => {
     e.preventDefault();
     if (!newMessage.trim() || !selectedDoctor) return;
     try {
-      await fetch(`http://localhost:8000/chat/send`, {
+      await fetch(`${API_BASE_URL}/chat/send`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sender_id: PATIENT_ID, receiver_id: selectedDoctor.id, content: newMessage })
       });

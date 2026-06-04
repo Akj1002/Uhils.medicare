@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Bot, User, Sparkles, Trash2, Minimize2 } from 'lucide-react';
+import API_BASE_URL from '../config/api';
 
 const PATIENT_ID = 2; // Active patient ID
 
@@ -62,7 +63,7 @@ const FloatingChatbot = () => {
     setIsTyping(true);
 
     try {
-      const res = await fetch('http://localhost:8000/chat/copilot', {
+      const res = await fetch(`${API_BASE_URL}/chat/copilot`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ patient_id: PATIENT_ID, message: text })
