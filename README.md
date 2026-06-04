@@ -14,6 +14,15 @@
 
 ---
 
+## 🚀 Live Demo
+
+- **Frontend (Patient/Doctor Portal):** [https://uhils-medicare.vercel.app](https://uhils-medicare.vercel.app)
+- **Backend API (Swagger Docs):** [https://uhilsmedicare-production.up.railway.app/docs](https://uhilsmedicare-production.up.railway.app/docs)
+
+*(Note: The first API request may take a few seconds to wake up the backend server from sleep.)*
+
+---
+
 ## ✨ Features
 
 | Module | Description |
